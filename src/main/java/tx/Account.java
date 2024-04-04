@@ -29,12 +29,13 @@ public class Account {
         this.money.addAndGet(money);
     }
 
-    public boolean withDraw(int money) {
-        if (this.money.get() >= money){
-            this.money.compareAndSet(this.money.intValue(),money);
-            log.info("Withdraw money : {} from Account : {}", money, this);
+    public boolean withDraw(int amount) {
+        if (this.money.get() >= amount){
+            this.money.compareAndSet(this.money.intValue(),this.money.intValue() - amount);
+            log.info("Withdraw money : {} from Account : {}", amount, this);
             return true;
         }
+        log.warn("Cannot withdraw amount : {}. Insufficient funds in the account : {}",amount,this);
         return false;
     }
 
